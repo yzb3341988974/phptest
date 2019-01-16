@@ -32,11 +32,11 @@ define("MY_NAME",'你是谁');
 define("ID",123);
 var_dump(MY_NAME);
 echo ID;
-
+echo MY_NAME;
 
 
 //--------------------------------------------------------------4 .    .魔术常量
-echo MY_NAME;
+
 echo __FILE__;
 echo __LINE__;
 
@@ -53,7 +53,7 @@ echo 'nid'.'aye';
 
 
 
-//---------------------------------------------------------6....   赋值运算  符：+=,-=,%=,.=,/=,*=;
+//---------------------------------------------------------6....   赋值运算符：+=,-=,%=,.=,/=,*=;
 $c=1;
 $d=1;
 $d+=$c;
@@ -243,7 +243,7 @@ exp5($xa);//输出11
 echo '<br/>'.$xa;//输出10
 
 //2)按引用传递参数
-//按引用传递参数，其中形参和实参指的同一个人，改变形参可以直接影响到实参的值。
+//按引用传递参数，其中形参和实参指的同一个值，改变形参可以直接影响到实参的值。
 function exp6(&$a){
     echo "<br/>".++$a;
 }
@@ -413,7 +413,7 @@ foreach ($student8 as $val){
 
 
 $student9=array(
-    array('a','b','c','d'),
+    array('afwefwaf','bfwfcq','cvqva','dvqvqa'),
     array('a','c','d'),
     array('b','c','d','e'),
     array('r','t','e')
@@ -421,7 +421,15 @@ $student9=array(
 foreach ($student9 as $value1){
     foreach ($value1 as $value2){
         echo  '<br/>';
-        echo $value2.'<br/>';
+        echo $value2.'    :';
+        var_dump(substr_count($value2,'a'));
+        var_dump(strpos($value2,'a'));
+        if(strpos($value2,'a')===false){
+            echo '没找到';
+        }
+        else{
+            echo  '找到啦'.'<br/>';
+        }
     }
 }
 
@@ -501,6 +509,8 @@ var_dump(in_array('11',$array4));
 $array5=array(60,70,80);
 list($zhangsan,$lisi,$wangsan)=$array5;
 echo $zhangsan;
+echo $lisi;
+echo $wangsan;
 
 
 //asort()对数据进行从小到大排序但不会改变索引值
@@ -546,9 +556,11 @@ print_r(array_filter($array8,"even"));//过滤掉奇数
 
 //22----------------------------------字符串函数
 
-//1)trim(变量，字符)去除字符串中左右两边的空白字符,第二个参数可以去除字符
+//1)去除空白或其他字符函数
+//trim(变量，字符)去除字符串中左右两边的空白字符,第二个参数可以去除字符
 //ltrim()去除左边空白
 //rtrim()去除右边空白
+
 
 $xd='   aaaaab   c cccccc    ';
 $xe='aaaabcccccc';
@@ -557,32 +569,346 @@ var_dump(trim($xd));
 var_dump(trim($xe,'a'));
 
 
+
 //2)大小写转换函数:
 //strtoupper(变量);转为大写
 //strtolower(变量);转为小写
+
 
 $xf='aaaBBB';
 var_dump(strtoupper($xf));
 var_dump(strtolower($xf));
 
+
 //3)字符串查找函数：
-//substr_count(变量，查找的字符，开始查找的偏移位置,指定偏移位置最大搜索长度);查找字符出现的次数
+//1))substr_count(变量，查找的字符，开始查找的偏移位置,指定偏移位置最大搜索长度);查找字符出现的次数
 $xg='afaefefeacaevve';
 var_dump(substr_count($xg,'a',2));
 
 
-//strpos(变量，查找字符，开始查找位置);字符首次出现的数字位置,没找到返回false,找到可能返回0，如果用if语句，0会返回false，要使用全等
-
+//2))strpos(变量，查找字符，开始查找位置);字符首次出现的数字位置,
+//没找到返回false,找到可能返回0，如果用if语句，0会返回false，要使用全等
 $xh='tetetetettet';
 var_dump(strpos($xh,'te'));
 
 
+//3))strstr(变量,字符):查找字符并输出字符之后的字符串（包括字符），加上true会输出字符前面的字符串
+$xi='abcdefg';
+echo '<br/>';
+var_dump($xi);
+echo '<br/>';
+var_dump(strstr($xi,'d'));
+echo '<br/>';
+var_dump(strstr($xi,'d',true));
+
+
+
+//4))字符串替换函数
+//str_replace(被替换的值，替换的值，字符串),可以使用数组,加上$count可以输出替换次数
+$xj='abcdefg';
+echo '<br/>';
+var_dump(str_replace('abc','ABC',$xj));
+var_dump(str_replace(array('e','f','g'),array('E','F','G'),$xj));
+
+
+//5))与html标签相关的函数
+//htmlspecialchars():把本来转换为html语言的标签保留.
+$str=<<<start
+<p style="color:red;font-size:28px">love</p>
+start;
+echo $str;
+echo htmlspecialchars($str);
+
+//strip_tags():去除html标签
+$str1=<<<start
+<p style="color:red;font-size:28px">love</p>
+<div>afadfaf</div>
+start;
+echo $str1;
+echo strip_tags($str1);
+echo strip_tags($str1,'<div>');//第二个参数，保留div标签
+
+//6))字符串截取函数
+//substr()
+$xk='faweffewafaefaw';
+echo substr($xk,2);//负数从后面往前开始截
+
+//7))字符串分割函数
+//explode(分割值，变量，最多分割几个)输出为数组
+$xl='test,test1,test2';
+var_dump(explode(',',$xl));
+var_dump(explode(',',$xl,2));
+
+//str_split(变量，每个数组值的个数);把字符串转为数组
+$xm='test';
+var_dump(str_split($xm));
+var_dump(str_split($xm,3));
+
+
+//-------------------------------23.正则表达式
+
+
+
+//1)正则表达式语法规则
+//描述了一类字符串的特征，然后通过这个特征可以配合一些特定的函数来完成对字符串更加复杂的操作
+//由普通字符和元字符组成
+
+//preg_match_all('正则表达式','变量'，生成数组);
+echo '<br/>';
+$xn='/test/';//正则表达式
+$str2='abctest';
+var_dump(preg_match_all($xn,$str2,$arr));
+var_dump($arr);
 
 
 
 
+//2)元字符
+// \d匹配十进制数字
+echo '<br/>';
+$xo='/t\dst/';
+$str3='faefafet4stfefa';
+var_dump(preg_match_all($xo,$str3,$arr1));
+var_dump($arr1);
+//  \D匹配除了十进制数字的字符
+echo '<br/>';
+$xp='/t\Dst/';
+$str4='test tfst t\'st t4st  tst';
+var_dump(preg_match_all($xp,$str4,$arr2));
+var_dump($arr2);
+
+//  \s匹配空白字符
+echo '<br/>';
+$xq='/t\sst/';
+$str5="t\nst";
+var_dump(preg_match_all($xq,$str5,$arr3));
+var_dump($arr3);
+
+//  \S匹配除空白字符以为的任意一个字符
+
+// \w 一个数字 ，下划线或字母
+echo '<br/>';
+$xr='/t\wst/';
+$str6='t_st';
+var_dump(preg_match_all($xr,$str6,$arr4));
+var_dump($arr4);
+
+// \W匹配除了上面的
+
+// . 匹配除了换行符之外的字符 要匹配.时使用反斜杠\转义.
 
 
+//元字符
+// * :放在*前面的字符可以 出现0次，可以出现1次，也可以出现多次
+echo '<br/>';
+$xs='/te*s*t/';
+$str7='abcteeeeeeeeeeeeeeesssssssssssssssssst';
+var_dump(preg_match_all($xs,$str7,$arr5));
+var_dump($arr5);
+
+
+//+ :放在+前面的可以出现1次或多次不可以不出现
+echo '<br/>';
+$xt='/te+st/';
+$str8='abcteeeeeeeeeeeeeeest';
+var_dump(preg_match_all($xt,$str8,$arr6));
+var_dump($arr6);
+
+
+//? ：？前面的可以出现0次或者1次
+echo '<br/>';
+$xu='/te?st/';
+$str9='adwtest';
+var_dump(preg_match_all($xu,$str9,$arr7));
+var_dump($arr7);
+
+
+//{n} :前面出现n次
+echo '<br/>';
+$xv='/te{5}st/';
+$str10='adwteeeeest';
+var_dump(preg_match_all($xv,$str10,$arr8));
+var_dump($arr8);
+
+//{n,}:不少于n次
+
+//{n.m} ：至少n次，最多m次
+
+
+//{n}与.结合
+echo '<br/>';
+$xw='/te.{5}st/';
+$str11='adwtefaa2est';
+var_dump(preg_match_all($xw,$str11,$arr9));
+var_dump($arr9);
+
+
+//*与.结合:   .*配合使用默认情况下是贪婪匹配，尽可能多的去匹配    后面加上？可以解决
+echo '<br/>';
+//$xx='/t.*t/';//贪婪匹配
+$xx='/t.*?t/';//懒惰匹配
+$str12='atdwtefaa2etst';
+var_dump(preg_match_all($xx,$str12,$arr10));
+var_dump($arr10);
+
+//  ^ :匹配字符的开始位置
+echo '<br/>';
+$xy='/^test/';//下面的字符必须以t开头
+$str12='testfaftest';
+var_dump(preg_match_all($xy,$str12,$arr10));
+var_dump($arr10);
+
+//$  匹配字符串的结束位置
+echo '<br/>';
+$xz='/test$/';//下面的字符必须以$结尾
+$str13='testfaftest';
+var_dump(preg_match_all($xz,$str13,$arr11));
+var_dump($arr11);
+
+// .*和^ $配合使用
+echo '<br/>';
+$xab='/^t.*t$/';//下面的字符必须以t开头
+$str14='tesfefewtfaftest';
+var_dump(preg_match_all($xab,$str14,$arr12));
+var_dump($arr12);
+
+// |:匹配多个特征
+
+echo '<br/>';
+$xac='/test|fef|faf/';//下面的字符必须以t开头
+$str15='tesfefewtfaftest';
+var_dump(preg_match_all($xac,$str15,$arr13));
+var_dump($arr13);
+
+
+// [] 匹配括号内的任意一个字符
+echo '<br/>';
+$xad='/t[abcdef]st/';//下面的字符必须以$结尾
+$str16='testfaftest';
+var_dump(preg_match_all($xad,$str16,$arr14));
+var_dump($arr14);
+
+
+//[^]匹配除了括号里面的字符外的一个字符
+echo '<br/>';
+$xae='/t[^e]st/';//下面的字符必须以$结尾
+$str17='tastfaftest';
+var_dump(preg_match_all($xae,$str17,$arr15));
+var_dump($arr15);
+
+
+//() \\1表示第一个圆括号表示的内容
+echo '<br/>';
+$xaf='/t(e)s(t)\\1/';//下面的字符必须以$结尾 表示 teste
+$str18='      teste    ';
+var_dump(preg_match_all($xaf,$str18,$arr16));
+var_dump($arr16);
+
+
+
+
+//3)模式修正符
+
+//  i :在和模式匹配是不区分大小写
+echo '<br/>';
+$xag='/test/i';
+$str19='      test   Test  tEst    TEST    ';
+var_dump(preg_match_all($xag,$str19,$arr17));
+var_dump($arr17);
+
+
+// m :多行匹配
+//使用条件 ：第一，目标字符串中必须包括换行符 \n   第二 ，正则表达式中必须出现^或$
+
+echo '<br/>';
+//$xah='/test$/m';
+$xah='/test\r*$/m';
+//$str19="test\ntest\ntest\ntest\n";
+$str19="test
+test
+test
+test";
+//在windows操作系统中换行有两个字符（\r\n）
+//在linux操作系统中换行为(\n )
+var_dump(preg_match_all($xah,$str19,$arr17));
+var_dump($arr17);
+
+
+// s ：设置后可以匹配所有字符
+echo '<br/>';
+$xai="/t.st/s";
+$str20="t\nst";
+var_dump(preg_match_all($xai,$str20,$arr19));
+var_dump($arr19);
+
+
+//U :禁止贪婪匹配
+echo '<br/>';
+//$xaj="/t.*?t/";
+$xaj="/t.*t/U";
+$str21="tfwqfwqt    fqwfqwfqft";
+var_dump(preg_match_all($xaj,$str21,$arr20));
+var_dump($arr20);
+
+
+//4)与正则表达式配合的函数
+//1))preg_match//返回正则表达式匹配的成功次数为0或1，而且只寻找第一次匹配
+echo '<br/>';
+$xak='/t(.*?)st/';
+$str22=' test   tfefefst   tafefst  tfafest ';
+var_dump(preg_match($xak,$str22,$arr21));
+var_dump($arr21);
+if(preg_match($xak,$str22,$arr21)){
+    echo '找到啦';
+}
+else {
+    echo '没找到';
+}
+
+//2))preg_match_all：
+//第四个参数：可选 PREG_PATTERN_ORDER为默认的  PREG_SET_ORDER改变数组存储形式
+echo '<br/>';
+$xal='/t(.*?)(s)t/';
+$str23=' test   tfdffst   tafefst  tfafdst ';
+var_dump(preg_match_all($xal,$str23,$arr22,PREG_SET_ORDER));
+var_dump($arr22);
+
+
+//3))preg_replace()
+//第一个参数：正则表达式
+//第二个参数：要替换成的字符串
+//第三个参数:整个字符串
+//第四个参数(可选)：默认是-1，就是替换所有符合特征值的部分
+//第五个参数(可选)：可以放一个变量，表示替换了几次
+echo '<br/>';
+$xam='/<div>(.*?)<\/div>/';
+$str25="<a>\\1</a>";//选择第一个括号里面的内容，还可以使用$1
+$str24="fefege<div>你好</div>fefefewf";
+if(preg_match($xam,$str24,$arr23)) {
+    var_dump(preg_replace($xam, $str25, $str24));
+}else{
+    echo '没找到';
+}
+var_dump($str24);
+
+
+//preg_replace()传数组是一一对应的去替换
+echo '<br/>';
+$xan=array(
+    '/<div(.*?)>(.*?)<\/div>/',
+    '/<p(.*?)>(.*?)<\/p>/'
+);
+$str26=array(
+    '<a$1 href="www.baidu.com">$2</a>',
+    '<span$1>$2</span>'
+);
+$str27='<div style="color: red ;font-size=15px">你好吗</div>fefwef<p style="color: yellow;font-size: 15px">我很好</p>';
+
+    echo "找到啦<br/>";
+    echo '替换为:';
+    var_dump(preg_replace($xan,$str26,$str27,-1,$count));
+    var_dump($count);
+    echo '原来的:'.$str27;
 
 
 
