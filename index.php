@@ -645,7 +645,7 @@ var_dump(str_split($xm));
 var_dump(str_split($xm,3));
 
 
-//-------------------------------23.正则表达式
+//--------------------------------------------------23.正则表达式
 
 
 
@@ -911,6 +911,91 @@ $str27='<div style="color: red ;font-size=15px">你好吗</div>fefwef<p style="c
     echo '原来的:'.$str27;
 
 
+
+
+
+
+//-------------------------------24日期与时间
+
+//1)设置时区
+date_default_timezone_set('Asia/Shanghai');//设置时区
+
+//2)获取当前unix时间戳
+var_dump(time());//从格林威治1970年1月1日00时00分00秒到现在的秒数
+//3）获取指定时间unix时间戳
+//mktime();时|分|秒|月|日|年
+$futuretime=mktime(0,0,0,10,1,2019);
+$nowtime=time();
+echo '距离2019年国庆还有'.(int)(($futuretime-$nowtime)/60/60/24).'天';
+
+//4)从unix时间戳获取时间日期信息
+    //date()
+//第一个参数：写上你所需要的时间日期格式
+echo '<br/>';
+var_dump(date('Y-m-d H:i:s'));
+
+//5)获取unix时间戳和微秒数
+echo '<br/>';
+var_dump(microtime(true));
+echo '<br/>';
+$starttime=microtime(true);
+for($i=0;$i<100000;$i++){
+
+}
+$endtime=microtime(true);
+echo '执行了'.round(($endtime-$starttime),6).'秒';
+
+
+//-----------------------------------25图像处理
+//GD库处理
+
+//看exp2.php
+
+
+
+//------------------------------------------26文件和目录的操作
+
+//1)判断普通文件和目录
+
+//is_file()是否为文件
+//is_dir()是否为目录
+
+echo '<br/>';
+var_dump(is_file('index.php  '));
+
+//2)文件属性
+echo '<br/>';
+var_dump(file_exists('../phptest1'));//文件或目录是否存在
+echo '<br/>';
+var_dump(round((filesize('index.php')/1024/1024),5));//返回文件大小
+echo '<br/>';
+echo date('Y-m-d,H:i:s',filectime('index.php'));//目录创建时间
+echo '<br/>';
+
+//3)目录的基本操作
+echo __FILE__;
+echo '<br/>';
+echo basename(__FILE__);//返回路径中的文件名
+echo '<br/>';
+echo dirname(__FILE__);//返回路径中的目录部分
+echo '<br/>';
+var_dump(pathinfo(__FILE__));//返回路径信息
+echo '<br/>';
+//opendir();//返回目录句柄
+echo '<br/>';
+//mkdir(目录名，权限(0777),true(代表可以创建多级目录));//新建目录
+
+//4)文件的基本操作
+$file=fopen('test.txt', 'r+');//打开文件
+//var_dump(fread($file,3));//返回字节
+var_dump(fgets($file));//读取行数
+var_dump(fgets($file));//读取行数
+var_dump(feof($file));//判断文件指针是否到达最后面
+var_dump(fwrite($file,'我'));
+
+
+//5)文件的上传
+ //上传上来文件的默认是放在一个临时目录里的，我们要做的就是把这些临时目录里面的文件移到我们需要的目录里
 
 
 
