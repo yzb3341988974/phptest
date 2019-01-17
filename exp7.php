@@ -20,9 +20,9 @@ if (isset($_POST['submit'])) {
     } else {
         exit('可能有攻击');
     }
-    var_dump($arr);
-    echo '<br/>';
-    var_dump($_FILES);
+    //var_dump($arr);
+    //echo '<br/>';
+    //var_dump($_FILES);
 }
 ?>
 <!DOCTYPE html>
